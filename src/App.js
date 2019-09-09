@@ -1,26 +1,65 @@
-import React from 'react';
-import logo from './logo.svg';
+import React, { Component } from 'react';
 import './App.css';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends Component {
+  state = {
+    age: '',
+    pretax: '',
+    saving: '',
+    contribute: '',
+    values: 0
+  };
+
+  handleClick = () => {
+    this.setState({
+      age:this.state.age,
+      pretax:this.state.pretax,
+      saving:this.state.saving,
+      contribute:this.state.contribute,
+    })
+    console.log('state', this.state);
+  };
+
+  formValues = () => {
+  const { values } = this.state;
+  return values === 0 ? "Zero" : values
+  };
+
+
+
+
+  render() {
+    return (
+      <div className="App">
+        <header className="App-header">
+          <h1> Retirement Calculator </h1>
+          <form>
+            <h3>Enter your retirement information:</h3>
+
+            <label htmlFor="exampleInputAge">Age</label>
+            <input className="form-control" type="text" id="input_age"  value={this.state.age}  placeholder="30" name="age"/>
+
+            <label htmlFor="exampleInputPreTax">Pre-Tax</label>
+            <input className="form-control" type="text" id="input_pretax" placeholder="$85,000" name="pretax"/>
+
+            <label htmlFor="exampleInputSaving">Saving</label>
+            <input className="form-control" type="text" id="input_saving"  placeholder="$30,000" name="saving"/>
+
+            <label htmlFor="exampleInputContribute">Contribute</label>
+            <input className="form-control" type="text" id="input_contribute"  placeholder="$50,000" name="contribute"/>
+
+            <button onClick={() => this.handleClick()}>Submit</button>
+          </form>
+          <p className="lead">
+            I am {this.formValues()}  years old with {this.state.pretax} in pre-tax income and {this.state.saving} in savings.
+            I can contribute {this.state.contribute} every month to my retirement savings.
+            <p className="lead">Warning: This is less than ___ off your monthly income.</p>
+          </p>
+          <p className="lead">The earliest you can retire with ___ of your income is __.</p>
+        </header>
+      </div>
+    );
+  }
 }
 
 export default App;
