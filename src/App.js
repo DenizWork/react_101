@@ -1,31 +1,44 @@
 import React, { Component } from 'react';
 import './App.css';
 
+import Result from "./components/Result";
+
 class App extends Component {
   state = {
-    age: '',
-    pretax: '',
-    saving: '',
-    contribute: '',
+    retirement : [
+      {age: ''},
+      {pretax: ''},
+      {saving: ''},
+      {contribute: ''},
+    ]
   };
 
   handleChange = (event) => {
+    console.log('this is event inside on change', event.target.value);
     this.setState({
-      age:event.target.value,
-      pretax:event.target.pretax,
-      saving:event.target.saving,
-      contribute:event.target.contribute,
-    })
-    console.log('age', event);
+      retirement : [
+        {age:event.target.value},
+        {pretax:event.target.value},
+        {saving:event.target.value},
+        {contribute:event.target.value},
+      ]
+    });
   };
 
   handleClick = (event) => {
-    console.log('button clicked');
-    event.preventDefault()
+    event.preventDefault();
+    console.log('button clicked event', event);
+    console.log('button clicked', this.state);
+    this.setState(
+      {retirement : [
+      {age:this.state.age},
+      {pretax:this.state.pretax},
+      {saving:this.state.saving},
+      {contribute:this.state.contribute},
+      {calculation:54}
+      ]}
+    )
   };
-
-
-
 
 
   render() {
@@ -47,15 +60,8 @@ class App extends Component {
 
             <label htmlFor="exampleInputContribute">Contribute</label>
             <input className="form-control" type="text" id="input_contribute" value={this.state.contribute} onChange={this.handleChange} placeholder="$50,000" name="contribute"/>
-
-            <button onClick={this.handleClick}>Submit</button>
           </form>
-          <p className="lead">
-            I am {this.state.age}  years old with {this.state.pretax} in pre-tax income and {this.state.saving} in savings.
-            I can contribute {this.state.contribute} every month to my retirement savings.
-            <p className="lead">Warning: This is less than ___ off your monthly income.</p>
-          </p>
-          <p className="lead">The earliest you can retire with ___ of your income is __.</p>
+          <Result value={this.state.retirement} onSave={this.handleClick}/>
         </header>
       </div>
     );
