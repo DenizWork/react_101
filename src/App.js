@@ -22,19 +22,22 @@ class App extends Component {
     })
     };
 
-  handleClick = (event) => {
+  handleSubmit = (event) => {
     event.preventDefault();
     console.log('button clicked this state', this.state);
-    this.setState({
-      retirement : [
-      {id:1, age:this.state.age},
-      {id:2, pretax:this.state.pretax},
-      {id:3, saving:this.state.saving},
-      {id:4, contribute:this.state.contribute},
-      ]}
+    // const retirement = this.state.retirement.map(single => {
+    //   single.key = this.state.value
+    // });
+    // this.setState(
+    //   { retirement }
+      // {retirement : [
+      // {id:1, age:this.state.age},
+      // {id:2, pretax:this.state.pretax},
+      // {id:3, saving:this.state.saving},
+      // {id:4, contribute:this.state.contribute},
       // {calculation:"54"}
-
-    )
+    // ]}
+    // )
   };
 
 
@@ -43,7 +46,7 @@ class App extends Component {
       <div className="App">
         <header className="App-header">
           <h1> Retirement Calculator </h1>
-          <form>
+          <form onSubmit={this.handleSubmit}>
             <h3>Enter your retirement information:</h3>
 
             <label htmlFor="exampleInputAge">Age</label>
@@ -57,8 +60,9 @@ class App extends Component {
 
             <label htmlFor="exampleInputContribute">Contribute</label>
             <input className="form-control" type="text" id="input_contribute" key={this.state.id} value={this.state.contribute} onChange={this.handleChange} placeholder="$50,000" name="contribute"/>
+            <input type="submit" value="Submit" />
           </form>
-          <Result value={this.state.retirement} onClick={this.handleClick}/>
+          <Result retirement={this.state}/>
         </header>
       </div>
     );
