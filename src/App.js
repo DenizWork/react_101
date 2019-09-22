@@ -6,37 +6,34 @@ import Result from "./components/Result";
 class App extends Component {
   state = {
     retirement : [
-      {age: ''},
-      {pretax: ''},
-      {saving: ''},
-      {contribute: ''},
+      {id:1, age: ''},
+      {id:2, pretax: ''},
+      {id:3, saving: ''},
+      {id:4, contribute: ''},
     ]
   };
 
   handleChange = (event) => {
-    console.log('this is event inside on change', event.target.value);
+    console.log('this is event inside on change', event.target);
+    const name = event.target.name;
+    const value = event.target.value;
     this.setState({
-      retirement : [
-        {age:event.target.value},
-        {pretax:event.target.value},
-        {saving:event.target.value},
-        {contribute:event.target.value},
-      ]
-    });
-  };
+      [name]: value,
+    })
+    };
 
   handleClick = (event) => {
     event.preventDefault();
-    console.log('button clicked event', event);
-    console.log('button clicked', this.state);
-    this.setState(
-      {retirement : [
-      {age:this.state.age},
-      {pretax:this.state.pretax},
-      {saving:this.state.saving},
-      {contribute:this.state.contribute},
-      {calculation:54}
+    console.log('button clicked this state', this.state);
+    this.setState({
+      retirement : [
+      {id:1, age:this.state.age},
+      {id:2, pretax:this.state.pretax},
+      {id:3, saving:this.state.saving},
+      {id:4, contribute:this.state.contribute},
       ]}
+      // {calculation:"54"}
+
     )
   };
 
@@ -50,18 +47,18 @@ class App extends Component {
             <h3>Enter your retirement information:</h3>
 
             <label htmlFor="exampleInputAge">Age</label>
-            <input className="form-control" type="text" id="input_age"  value={this.state.age} onChange={this.handleChange} placeholder="30" name="age"/>
+            <input className="form-control" type="text" id="input_age"  key={this.state.id} value={this.state.age} onChange={this.handleChange} placeholder="30" name="age"/>
 
             <label htmlFor="exampleInputPreTax">Pre-Tax</label>
-            <input className="form-control" type="text" id="input_pretax"  value={this.state.pretax} onChange={this.handleChange} placeholder="$85,000" name="pretax"/>
+            <input className="form-control" type="text" id="input_pretax" key={this.state.id} value={this.state.pretax} onChange={this.handleChange} placeholder="$85,000" name="pretax"/>
 
             <label htmlFor="exampleInputSaving">Saving</label>
-            <input className="form-control" type="text" id="input_saving" value={this.state.saving} onChange={this.handleChange} placeholder="$30,000" name="saving"/>
+            <input className="form-control" type="text" id="input_saving" key={this.state.id} value={this.state.saving} onChange={this.handleChange} placeholder="$30,000" name="saving"/>
 
             <label htmlFor="exampleInputContribute">Contribute</label>
-            <input className="form-control" type="text" id="input_contribute" value={this.state.contribute} onChange={this.handleChange} placeholder="$50,000" name="contribute"/>
+            <input className="form-control" type="text" id="input_contribute" key={this.state.id} value={this.state.contribute} onChange={this.handleChange} placeholder="$50,000" name="contribute"/>
           </form>
-          <Result value={this.state.retirement} onSave={this.handleClick}/>
+          <Result value={this.state.retirement} onClick={this.handleClick}/>
         </header>
       </div>
     );
